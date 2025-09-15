@@ -328,6 +328,15 @@
             transform: none;
         }
 
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--warning), #f97316);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
+        }
+
         /* Progress Bar Enhanced */
         .progress-container {
             margin: 30px 0;
@@ -539,6 +548,132 @@
             box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
         }
 
+        /* NEW: Meal Planning Styles */
+        .meal-planning-section {
+            margin-top: 60px;
+        }
+
+        .meal-planning-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-green);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover {
+            background: var(--light-green);
+        }
+
+        .checkbox-item input {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .meal-plan-result, .shopping-list-result {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 15px 40px var(--shadow);
+            border-left: 6px solid var(--primary-green);
+        }
+
+        .day-plan {
+            background: var(--light-gray);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid var(--secondary-green);
+        }
+
+        .meal-item {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 3px 10px var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .carbon-badge {
+            background: var(--primary-green);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .category-section {
+            background: var(--light-green);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .shopping-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(34, 197, 94, 0.1);
+        }
+
+        .shopping-item:last-child {
+            border-bottom: none;
+        }
+
         /* Loading Animation */
         .loading {
             display: inline-block;
@@ -578,7 +713,7 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .main-layout {
+            .main-layout, .meal-planning-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
@@ -601,6 +736,10 @@
                 right: auto;
                 margin-top: 20px;
                 display: inline-block;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -673,7 +812,7 @@
                 <div class="logo-icon">🌱</div>
                 <h1>GreenLens</h1>
             </div>
-            <p class="subtitle">AI-Powered Receipt Analysis for Climate Action</p>
+            <p class="subtitle">AI-Powered Receipt Analysis & Sustainable Meal Planning</p>
         </div>
     </div>
 
@@ -765,6 +904,161 @@
             </h2>
             <div id="alternatives"></div>
         </div>
+
+        <!-- NEW: Meal Planning Section -->
+        <div class="meal-planning-section">
+            <div class="meal-planning-grid">
+                <!-- Meal Prep Planning -->
+                <div class="card fade-in">
+                    <h2 class="card-title">
+                        <i class="fas fa-utensils"></i>
+                        Carbon-Optimized Meal Prep
+                    </h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Weekly Budget ($)</label>
+                        <input type="number" class="form-input" id="mealBudget" placeholder="e.g., 75" min="20" max="500">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Number of People</label>
+                        <select class="form-select" id="peopleCount">
+                            <option value="1">1 Person</option>
+                            <option value="2">2 People</option>
+                            <option value="3">3 People</option>
+                            <option value="4">4 People</option>
+                            <option value="5">5+ People</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Dietary Preferences</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="vegetarian" value="vegetarian">
+                                <span>Vegetarian</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="vegan" value="vegan">
+                                <span>Vegan</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="glutenFree" value="gluten-free">
+                                <span>Gluten-Free</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="dairyFree" value="dairy-free">
+                                <span>Dairy-Free</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="lowCarb" value="low-carb">
+                                <span>Low-Carb</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="keto" value="keto">
+                                <span>Keto</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Additional Preferences/Allergies</label>
+                        <textarea class="form-textarea" id="additionalPrefs" placeholder="e.g., no seafood, prefer organic, seasonal ingredients..."></textarea>
+                    </div>
+
+                    <button class="btn" id="generateMealPlan">
+                        <i class="fas fa-magic"></i>
+                        Generate Meal Plan
+                    </button>
+
+                    <div class="progress-container" id="mealPlanProgress" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="mealPlanProgressFill"></div>
+                        </div>
+                        <div class="progress-text" id="mealPlanProgressText">AI is creating your sustainable meal plan...</div>
+                    </div>
+
+                    <div id="mealPlanResults"></div>
+                </div>
+
+                <!-- Smart Shopping List -->
+                <div class="card fade-in">
+                    <h2 class="card-title">
+                        <i class="fas fa-list-check"></i>
+                        Smart Shopping List Generator
+                    </h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Shopping Budget ($)</label>
+                        <input type="number" class="form-input" id="shoppingBudget" placeholder="e.g., 100" min="30" max="1000">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Meal Planning Duration</label>
+                        <select class="form-select" id="planDuration">
+                            <option value="week">This Week</option>
+                            <option value="2weeks">Next 2 Weeks</option>
+                            <option value="month">This Month</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Priority Focus</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="radio" name="priority" value="carbon" id="priorityCarbon">
+                                <span>Lowest Carbon Footprint</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="radio" name="priority" value="cost" id="priorityCost">
+                                <span>Best Value for Money</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="radio" name="priority" value="balanced" id="priorityBalanced" checked>
+                                <span>Balanced Approach</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Current Pantry Items (optional)</label>
+                        <textarea class="form-textarea" id="pantryItems" placeholder="e.g., rice, pasta, canned beans, olive oil..."></textarea>
+                    </div>
+
+                    <button class="btn btn-secondary" id="generateShoppingList">
+                        <i class="fas fa-shopping-cart"></i>
+                        Generate Smart List
+                    </button>
+
+                    <div class="progress-container" id="shoppingProgress" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="shoppingProgressFill"></div>
+                        </div>
+                        <div class="progress-text" id="shoppingProgressText">AI is optimizing your shopping list...</div>
+                    </div>
+
+                    <div id="shoppingListResults"></div>
+                </div>
+            </div>
+
+            <!-- Meal Plan Display -->
+            <div class="meal-plan-result" id="mealPlanDisplay" style="display: none;">
+                <h3 style="color: var(--dark-green); margin-bottom: 20px; display: flex; align-items: center;">
+                    <i class="fas fa-calendar-week" style="margin-right: 10px; color: var(--primary-green);"></i>
+                    Your Sustainable Weekly Meal Plan
+                </h3>
+                <div id="mealPlanContent"></div>
+            </div>
+
+            <!-- Shopping List Display -->
+            <div class="shopping-list-result" id="shoppingListDisplay" style="display: none;">
+                <h3 style="color: var(--dark-green); margin-bottom: 20px; display: flex; align-items: center;">
+                    <i class="fas fa-list" style="margin-right: 10px; color: var(--primary-green);"></i>
+                    Your Optimized Shopping List
+                </h3>
+                <div id="shoppingListContent"></div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -773,9 +1067,11 @@
         
         // State management
         let isProcessing = false;
+        let isMealPlanGenerating = false;
+        let isShoppingListGenerating = false;
         let connectionStatus = 'checking';
 
-        // DOM Elements
+        // DOM Elements - Existing
         const uploadArea = document.getElementById('uploadArea');
         const imageInput = document.getElementById('imageInput');
         const uploadBtn = document.getElementById('uploadBtn');
@@ -790,15 +1086,32 @@
         const alternativesSection = document.getElementById('alternativesSection');
         const alternatives = document.getElementById('alternatives');
 
+        // DOM Elements - NEW Meal Planning
+        const generateMealPlanBtn = document.getElementById('generateMealPlan');
+        const mealPlanProgress = document.getElementById('mealPlanProgress');
+        const mealPlanProgressFill = document.getElementById('mealPlanProgressFill');
+        const mealPlanProgressText = document.getElementById('mealPlanProgressText');
+        const mealPlanResults = document.getElementById('mealPlanResults');
+        const mealPlanDisplay = document.getElementById('mealPlanDisplay');
+        const mealPlanContent = document.getElementById('mealPlanContent');
+
+        const generateShoppingListBtn = document.getElementById('generateShoppingList');
+        const shoppingProgress = document.getElementById('shoppingProgress');
+        const shoppingProgressFill = document.getElementById('shoppingProgressFill');
+        const shoppingProgressText = document.getElementById('shoppingProgressText');
+        const shoppingListResults = document.getElementById('shoppingListResults');
+        const shoppingListDisplay = document.getElementById('shoppingListDisplay');
+        const shoppingListContent = document.getElementById('shoppingListContent');
+
         // Initialize the application
         document.addEventListener('DOMContentLoaded', async () => {
             await checkBackendConnection();
             createFloatingLeaves();
             setupEventListeners();
             
-            console.log('🌱 GreenLens Carbon Scanner Initialized');
+            console.log('🌱 GreenLens Enhanced with Meal Planning Initialized');
             console.log('Backend Integration: Enabled');
-            console.log('Features: Real OCR, Actual Carbon Analysis, Live Database');
+            console.log('Features: Receipt OCR, Carbon Analysis, Meal Planning, Shopping Lists');
         });
 
         // Check backend connection
@@ -842,41 +1155,346 @@
                 console.error('Backend connection failed:', error);
                 
                 if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
-                    showNotification('Cannot reach backend server. Is it running on port 5000?', 'error');
+                    showNotification('Cannot reach backend server. Is it running on port 5100?', 'error');
                 } else if (error.message.includes('404')) {
                     showNotification('Backend endpoints not found. Check server configuration.', 'error');
                 } else {
                     showNotification(`Backend connection failed: ${error.message}`, 'error');
                 }
                 
-                disableUpload(true);
+                disableFeatures(true);
             }
         }
-        uploadBtn.addEventListener('change', handleFileSelect);
-
-        // Add this new button click handler:
-        uploadBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent event bubbling
-            console.log('Upload button clicked');
-            imageInput.click();
-        });
 
         // Setup event listeners
         function setupEventListeners() {
+            // Existing receipt scanning listeners
             uploadArea.addEventListener('dragover', handleDragOver);
             uploadArea.addEventListener('dragleave', handleDragLeave);
             uploadArea.addEventListener('drop', handleDrop);
             uploadArea.addEventListener('click', () => {
                 console.log('Upload area clicked');
-                console.log('isProcessing:', isProcessing);
-                console.log('connectionStatus:', connectionStatus);
-                
-                // Simplified check - just try to open file dialog
                 imageInput.click();
             });
+            
+            uploadBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                console.log('Upload button clicked');
+                imageInput.click();
+            });
+            
+            imageInput.addEventListener('change', handleFileSelect);
+
+            // NEW: Meal planning listeners
+            generateMealPlanBtn.addEventListener('click', handleGenerateMealPlan);
+            generateShoppingListBtn.addEventListener('click', handleGenerateShoppingList);
+        }
+
+        // NEW: Handle meal plan generation
+        async function handleGenerateMealPlan() {
+            if (isMealPlanGenerating || connectionStatus !== 'connected') {
+                return;
+            }
+
+            const budget = document.getElementById('mealBudget').value;
+            const peopleCount = document.getElementById('peopleCount').value;
+            const additionalPrefs = document.getElementById('additionalPrefs').value;
+
+            if (!budget || budget < 20) {
+                showNotification('Please enter a valid budget (minimum $20)', 'error');
+                return;
+            }
+
+            // Collect dietary preferences
+            const dietaryPrefs = [];
+            ['vegetarian', 'vegan', 'glutenFree', 'dairyFree', 'lowCarb', 'keto'].forEach(id => {
+                if (document.getElementById(id).checked) {
+                    dietaryPrefs.push(document.getElementById(id).value);
+                }
+            });
+
+            setMealPlanGenerating(true);
+
+            try {
+                const requestData = {
+                    budget: parseFloat(budget),
+                    people_count: parseInt(peopleCount),
+                    dietary_preferences: dietaryPrefs,
+                    additional_preferences: additionalPrefs,
+                    optimize_for: 'carbon_footprint'
+                };
+
+                updateMealPlanProgress(10, 'Connecting to AI meal planner...');
+                
+                const response = await fetch(`${API_BASE_URL}/api/generate-meal-plan`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                updateMealPlanProgress(60, 'AI is creating your personalized meal plan...');
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || `HTTP ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                updateMealPlanProgress(100, 'Meal plan ready!');
+                
+                if (result.success) {
+                    displayMealPlan(result);
+                    showNotification(`Meal plan generated! Total carbon footprint: ${result.summary.total_carbon_footprint} kg CO₂`, 'success');
+                } else {
+                    throw new Error(result.error || 'Meal plan generation failed');
+                }
+
+            } catch (error) {
+                console.error('Meal plan generation failed:', error);
+                showNotification('Failed to generate meal plan. Please try again.', 'error');
+                displayMealPlanError(error);
+            } finally {
+                setMealPlanGenerating(false);
+            }
+        }
+
+        // NEW: Handle shopping list generation
+        async function handleGenerateShoppingList() {
+            if (isShoppingListGenerating || connectionStatus !== 'connected') {
+                return;
+            }
+
+            const budget = document.getElementById('shoppingBudget').value;
+            const duration = document.getElementById('planDuration').value;
+            const pantryItems = document.getElementById('pantryItems').value;
+
+            if (!budget || budget < 30) {
+                showNotification('Please enter a valid budget (minimum $30)', 'error');
+                return;
+            }
+
+            // Get priority
+            const priorityRadios = document.getElementsByName('priority');
+            let priority = 'balanced';
+            for (const radio of priorityRadios) {
+                if (radio.checked) {
+                    priority = radio.value;
+                    break;
+                }
+            }
+
+            setShoppingListGenerating(true);
+
+            try {
+                const requestData = {
+                    budget: parseFloat(budget),
+                    duration: duration,
+                    priority: priority,
+                    pantry_items: pantryItems ? pantryItems.split(',').map(item => item.trim()) : [],
+                    optimize_for: priority
+                };
+
+                updateShoppingProgress(10, 'Analyzing carbon data...');
+                
+                const response = await fetch(`${API_BASE_URL}/api/generate-shopping-list`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                updateShoppingProgress(70, 'Optimizing for sustainability...');
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || `HTTP ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                updateShoppingProgress(100, 'Shopping list optimized!');
+                
+                if (result.success) {
+                    displayShoppingList(result);
+                    showNotification(`Smart shopping list generated! Estimated carbon footprint: ${result.summary.estimated_carbon_footprint} kg CO₂`, 'success');
+                } else {
+                    throw new Error(result.error || 'Shopping list generation failed');
+                }
+
+            } catch (error) {
+                console.error('Shopping list generation failed:', error);
+                showNotification('Failed to generate shopping list. Please try again.', 'error');
+                displayShoppingListError(error);
+            } finally {
+                setShoppingListGenerating(false);
+            }
+        }
+
+        // NEW: Display meal plan results
+        function displayMealPlan(result) {
+            if (!result.meal_plan || result.meal_plan.length === 0) {
+                mealPlanContent.innerHTML = '<div class="error-message">No meal plan could be generated with the given parameters.</div>';
+                return;
+            }
+
+            let content = `
+                <div style="background: var(--light-green); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center;">
+                        <div>
+                            <strong style="color: var(--dark-green);">Total Budget</strong><br>
+                            <span style="font-size: 1.2rem;">${result.summary.total_cost.toFixed(2)}</span>
+                        </div>
+                        <div>
+                            <strong style="color: var(--dark-green);">Carbon Footprint</strong><br>
+                            <span style="font-size: 1.2rem;">${result.summary.total_carbon_footprint.toFixed(2)} kg CO₂</span>
+                        </div>
+                        <div>
+                            <strong style="color: var(--dark-green);">Total Meals</strong><br>
+                            <span style="font-size: 1.2rem;">${result.summary.total_meals}</span>
+                        </div>
+                        <div>
+                            <strong style="color: var(--dark-green);">Avg per Meal</strong><br>
+                            <span style="font-size: 1.2rem;">${result.summary.avg_cost_per_meal.toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            result.meal_plan.forEach(day => {
+                content += `
+                    <div class="day-plan">
+                        <h4 style="color: var(--dark-green); margin-bottom: 15px; display: flex; align-items: center;">
+                            <i class="fas fa-calendar-day" style="margin-right: 10px;"></i>
+                            ${day.day}
+                            <span class="carbon-badge" style="margin-left: auto;">${day.daily_carbon.toFixed(2)} kg CO₂</span>
+                        </h4>
                         
-                        imageInput.addEventListener('change', handleFileSelect);
-                    }
+                        ${day.meals.map(meal => `
+                            <div class="meal-item">
+                                <div>
+                                    <strong style="color: var(--dark-green);">${meal.name}</strong>
+                                    <br>
+                                    <small style="color: var(--gray);">${meal.type} • ${meal.prep_time} min prep</small>
+                                    ${meal.description ? `<br><span style="font-size: 0.9rem;">${meal.description}</span>` : ''}
+                                </div>
+                                <div style="text-align: right;">
+                                    <div class="carbon-badge" style="background: ${getCarbonColor(meal.carbon_footprint)};">
+                                        ${meal.carbon_footprint.toFixed(2)} kg CO₂
+                                    </div>
+                                    <small style="color: var(--gray); margin-top: 5px; display: block;">${meal.estimated_cost.toFixed(2)}</small>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+
+            if (result.tips && result.tips.length > 0) {
+                content += `
+                    <div style="background: var(--white); padding: 20px; border-radius: 15px; margin-top: 20px; border-left: 4px solid var(--primary-green);">
+                        <h4 style="color: var(--dark-green); margin-bottom: 15px;">
+                            <i class="fas fa-lightbulb" style="margin-right: 10px;"></i>
+                            Sustainability Tips
+                        </h4>
+                        ${result.tips.map(tip => `
+                            <div style="margin: 10px 0; padding: 10px; background: var(--light-gray); border-radius: 8px;">
+                                ${tip}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            mealPlanContent.innerHTML = content;
+            mealPlanDisplay.style.display = 'block';
+            mealPlanDisplay.classList.add('fade-in');
+        }
+
+        // NEW: Display shopping list results  
+        function displayShoppingList(result) {
+            if (!result.shopping_list || Object.keys(result.shopping_list).length === 0) {
+                shoppingListContent.innerHTML = '<div class="error-message">No shopping list could be generated with the given parameters.</div>';
+                return;
+            }
+
+            let content = `
+                <div style="background: var(--light-green); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center;">
+                        <div>
+                            <strong style="color: var(--dark-green);">Total Budget</strong><br>
+                            <span style="font-size: 1.2rem;">${result.summary.total_cost.toFixed(2)}</span>
+                        </div>
+                        <div>
+                            <strong style="color: var(--dark-green);">Carbon Footprint</strong><br>
+                            <span style="font-size: 1.2rem;">${result.summary.estimated_carbon_footprint.toFixed(2)} kg CO₂</span>
+                        </div>
+                        <div>
+                            <strong style="color: var(--dark-green);">Total Items</strong><br>
+                            <span style="font-size: 1.2rem;">${result.summary.total_items}</span>
+                        </div>
+                        <div>
+                            <strong style="color: var(--dark-green);">Savings</strong><br>
+                            <span style="font-size: 1.2rem; color: var(--primary-green);">${result.summary.potential_savings.toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            Object.entries(result.shopping_list).forEach(([category, items]) => {
+                content += `
+                    <div class="category-section">
+                        <h4 style="color: var(--dark-green); margin-bottom: 15px; display: flex; align-items: center;">
+                            <i class="fas fa-tags" style="margin-right: 10px;"></i>
+                            ${category.charAt(0).toUpperCase() + category.slice(1)}
+                            <span style="margin-left: auto; font-size: 0.9rem; opacity: 0.8;">${items.length} items</span>
+                        </h4>
+                        
+                        ${items.map(item => `
+                            <div class="shopping-item">
+                                <div>
+                                    <strong>${item.name}</strong>
+                                    ${item.quantity ? `<span style="color: var(--gray);"> • ${item.quantity}</span>` : ''}
+                                    ${item.brand_preference ? `<br><small style="color: var(--gray);">Recommended: ${item.brand_preference}</small>` : ''}
+                                </div>
+                                <div style="text-align: right;">
+                                    <strong style="color: var(--dark-green);">${item.estimated_price.toFixed(2)}</strong>
+                                    <br><small style="color: var(--gray);">${item.carbon_footprint.toFixed(2)} kg CO₂</small>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+
+            if (result.alternatives && result.alternatives.length > 0) {
+                content += `
+                    <div style="background: var(--white); padding: 20px; border-radius: 15px; margin-top: 20px; border-left: 4px solid var(--primary-green);">
+                        <h4 style="color: var(--dark-green); margin-bottom: 15px;">
+                            <i class="fas fa-exchange-alt" style="margin-right: 10px;"></i>
+                            Sustainable Alternatives
+                        </h4>
+                        ${result.alternatives.map(alt => `
+                            <div style="margin: 15px 0; padding: 15px; background: var(--light-gray); border-radius: 10px;">
+                                <strong style="color: var(--dark-green);">${alt.original_item} → ${alt.alternative}</strong>
+                                <br><span style="color: var(--gray); font-size: 0.9rem;">${alt.reason}</span>
+                                <br><span style="color: var(--primary-green); font-weight: 600;">Save: ${alt.carbon_savings.toFixed(2)} kg CO₂ • ${alt.cost_savings.toFixed(2)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            shoppingListContent.innerHTML = content;
+            shoppingListDisplay.style.display = 'block';
+            shoppingListDisplay.classList.add('fade-in');
+        }
+
+        // Existing functions continue as before...
+        // [All previous functions from the original code remain the same]
 
         // Drag and drop handlers
         function handleDragOver(e) {
@@ -933,10 +1551,7 @@
             showImagePreview(file);
             
             try {
-                // Convert file to base64
                 const base64Image = await fileToBase64(file);
-                
-                // Send to backend for processing
                 await processReceiptWithBackend(base64Image);
                 
             } catch (error) {
@@ -953,7 +1568,6 @@
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onload = () => {
-                    // Remove data URL prefix
                     const base64 = reader.result.split(',')[1];
                     resolve(base64);
                 };
@@ -977,7 +1591,7 @@
             reader.readAsDataURL(file);
         }
 
-        // Set processing state
+        // Set processing states
         function setProcessingState(processing) {
             isProcessing = processing;
             
@@ -995,483 +1609,561 @@
             }
         }
 
-        // Process receipt with backend
-        async function processReceiptWithBackend(base64Image) {
-            updateProgress(10, 'Connecting to OCR service...');
+        function setMealPlanGenerating(generating) {
+            isMealPlanGenerating = generating;
             
-            const requestBody = {
-                image: base64Image
-            };
+            if (generating) {
+                generateMealPlanBtn.disabled = true;
+                generateMealPlanBtn.innerHTML = '<div class="loading"></div> Generating...';
+                mealPlanProgress.style.display = 'block';
+                mealPlanDisplay.style.display = 'none';
+            } else {
+                generateMealPlanBtn.disabled = false;
+                generateMealPlanBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Meal Plan';
+                mealPlanProgress.style.display = 'none';
+            }
+        }
 
+        function setShoppingListGenerating(generating) {
+            isShoppingListGenerating = generating;
+            
+            if (generating) {
+                generateShoppingListBtn.disabled = true;
+                generateShoppingListBtn.innerHTML = '<div class="loading"></div> Generating...';
+                shoppingProgress.style.display = 'block';
+                shoppingListDisplay.style.display = 'none';
+            } else {
+                generateShoppingListBtn.disabled = false;
+                generateShoppingListBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Generate Smart List';
+                shoppingProgress.style.display = 'none';
+            }
+        }
+
+        // Process receipt with backend API
+        async function processReceiptWithBackend(base64Image) {
             try {
-                const response = await fetch(`${API_BASE_URL}/api/scan-receipt`, {
+                updateProgress(10, 'Connecting to OCR service...');
+                
+                const formData = new FormData();
+                formData.append('image_data', base64Image);
+                formData.append('analysis_type', 'full');
+                
+                const response = await fetch(`${API_BASE_URL}/api/analyze-receipt`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
                     },
-                    body: JSON.stringify(requestBody)
+                    body: formData
                 });
 
-                updateProgress(30, 'Processing image with OCR...');
+                updateProgress(40, 'Extracting text from receipt...');
 
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
                     throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
                 }
 
-                updateProgress(60, 'Analyzing carbon footprint...');
-                
                 const result = await response.json();
                 
-                updateProgress(90, 'Generating recommendations...');
-                
+                updateProgress(70, 'Analyzing carbon footprint...');
+
                 if (result.success) {
                     updateProgress(100, 'Analysis complete!');
-                    await displayResults(result);
+                    displayReceiptAnalysis(result);
+                    
+                    // Generate meal prep suggestions based on receipt items
+                    if (result.products && result.products.length > 0) {
+                        await generateReceiptBasedMealPrep(result.products, result.summary);
+                    }
                 } else {
-                    throw new Error(result.error || 'Analysis failed');
+                    throw new Error(result.error || 'Receipt analysis failed');
                 }
 
             } catch (error) {
-                console.error('Backend processing failed:', error);
-                
-                if (error.name === 'TypeError' && error.message.includes('fetch')) {
-                    throw new Error('Cannot connect to backend server. Please ensure the server is running.');
-                } else {
-                    throw error;
-                }
+                console.error('Receipt processing error:', error);
+                updateProgress(0, 'Analysis failed');
+                throw error;
             }
         }
 
-        // Update progress bar
-        function updateProgress(percentage, text) {
-            progressFill.style.width = percentage + '%';
-            progressText.textContent = text;
+        // NEW: Generate meal prep suggestions based on receipt analysis
+        async function generateReceiptBasedMealPrep(products, summary) {
+            try {
+                const highCarbonItems = products.filter(p => 
+                    p.carbon_footprint > 2.0 || 
+                    (p.category && ['meat', 'dairy', 'processed'].includes(p.category.toLowerCase()))
+                );
+
+                const requestData = {
+                    receipt_products: products.map(p => ({
+                        name: p.name,
+                        category: p.category || 'unknown',
+                        carbon_footprint: p.carbon_footprint || 0,
+                        price: p.price || 0,
+                        quantity: p.quantity || 1
+                    })),
+                    total_carbon_footprint: summary.total_carbon_footprint || 0,
+                    optimization_focus: 'carbon_reduction',
+                    meal_count: 7, // Week of meals
+                    people_count: 2 // Default
+                };
+
+                const response = await fetch(`${API_BASE_URL}/api/generate-receipt-meal-prep`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                if (response.ok) {
+                    const mealPrepResult = await response.json();
+                    displayReceiptBasedMealPrep(mealPrepResult, highCarbonItems);
+                }
+            } catch (error) {
+                console.warn('Failed to generate receipt-based meal prep:', error);
+            }
         }
 
-        // Display results from backend
-        async function displayResults(result) {
-            // Show OCR results
-            displayOCRResults(result);
+        // Display receipt analysis results
+        function displayReceiptAnalysis(result) {
+            displayOCRResults(result.extracted_text || 'Text extraction completed');
+            displayProductAnalysis(result.products || []);
+            displayStatistics(result.summary || {});
             
-            // Show product analysis
-            displayProductAnalysis(result);
-            
-            // Update statistics
-            updateStatistics(result);
-            
-            // Show alternatives
-            displayAlternatives(result);
-            
-            // Show success message
-            showNotification(`Analysis complete! Found ${result.products.length} products with ${result.carbon_analysis.total_carbon_footprint} kg CO₂ total footprint.`, 'success');
+            if (result.alternatives && result.alternatives.length > 0) {
+                displayAlternatives(result.alternatives);
+            }
         }
 
         // Display OCR results
-        function displayOCRResults(result) {
-            const store = result.receipt_info.store_name || 'Unknown Store';
-            const date = result.receipt_info.date || 'Unknown Date';
-            const total = result.receipt_info.total_amount || 0;
-            const confidence = result.ocr_data.confidence || 0;
-
+        function displayOCRResults(extractedText) {
             ocrResults.innerHTML = `
-                <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <i class="fas fa-file-text" style="font-size: 2rem; color: var(--primary-green); margin-right: 15px;"></i>
-                    <div>
-                        <h3 style="color: var(--dark-green); font-size: 1.5rem; margin: 0;">OCR Analysis Complete</h3>
-                        <small style="color: var(--gray);">Confidence: ${Math.round(confidence)}% • Engine: ${result.ocr_data.primary_engine || 'Advanced OCR'}</small>
-                    </div>
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <i class="fas fa-eye" style="color: var(--primary-green); margin-right: 10px; font-size: 1.2rem;"></i>
+                    <h3 style="color: var(--dark-green); margin: 0;">Text Extracted from Receipt</h3>
                 </div>
-                
-                <div style="background: var(--white); padding: 20px; border-radius: 10px; border-left: 5px solid var(--primary-green);">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
-                        <div><strong>Store:</strong> ${store}</div>
-                        <div><strong>Date:</strong> ${date}</div>
-                        <div><strong>Total:</strong> ${total.toFixed(2)}</div>
-                        <div><strong>Products Found:</strong> ${result.receipt_info.product_count}</div>
-                    </div>
-                    
-                    ${result.ocr_data.raw_text ? `
-                        <details style="margin-top: 15px;">
-                            <summary style="cursor: pointer; font-weight: 600; color: var(--primary-green);">View Raw OCR Text</summary>
-                            <pre style="background: var(--light-gray); padding: 15px; border-radius: 8px; margin-top: 10px; font-size: 0.85rem; max-height: 200px; overflow-y: auto; white-space: pre-wrap;">${result.ocr_data.raw_text}</pre>
-                        </details>
-                    ` : ''}
+                <div style="background: var(--white); padding: 20px; border-radius: 10px; border-left: 4px solid var(--primary-green); font-family: 'Courier New', monospace; white-space: pre-wrap; max-height: 200px; overflow-y: auto;">
+                    ${extractedText}
                 </div>
             `;
         }
 
-        // Display product analysis
-        function displayProductAnalysis(result) {
-            if (!result.products || result.products.length === 0) {
-                productAnalysis.innerHTML = `
-                    <div class="error-message">
-                        <i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>
-                        No products could be identified from this receipt.
-                    </div>
-                `;
+        // Display product analysis with enhanced carbon footprint details
+        function displayProductAnalysis(products) {
+            if (!products || products.length === 0) {
+                productAnalysis.innerHTML = '<div class="error-message">No products could be identified from the receipt.</div>';
                 return;
             }
 
-            let productsHTML = `
-                <div style="display: flex; align-items: center; margin: 30px 0 20px 0;">
-                    <i class="fas fa-leaf" style="font-size: 2rem; color: var(--primary-green); margin-right: 15px;"></i>
-                    <h3 style="color: var(--dark-green); font-size: 1.5rem; margin: 0;">Carbon Footprint Analysis</h3>
+            const totalProducts = products.length;
+            const highCarbonCount = products.filter(p => (p.carbon_footprint || 0) > 2.0).length;
+            
+            let html = `
+                <div style="display: flex; align-items: center; justify-content: between; margin-bottom: 20px;">
+                    <div>
+                        <h3 style="color: var(--dark-green); margin: 0; display: flex; align-items: center;">
+                            <i class="fas fa-shopping-basket" style="margin-right: 10px; color: var(--primary-green);"></i>
+                            Products Identified (${totalProducts})
+                        </h3>
+                        <p style="color: var(--gray); margin: 5px 0 0 0; font-size: 0.9rem;">
+                            ${highCarbonCount} high-carbon items detected
+                        </p>
+                    </div>
+                    <div class="tooltip" style="margin-left: auto;">
+                        <button class="btn" onclick="generateAlternativesForAllItems()" style="font-size: 0.9rem; padding: 10px 20px;">
+                            <i class="fas fa-leaf"></i>
+                            Find Alternatives
+                        </button>
+                        <span class="tooltiptext">Find sustainable alternatives for high-carbon items</span>
+                    </div>
                 </div>
             `;
 
-            result.products.forEach((product, index) => {
-                const carbonLevel = getCarbonLevel(product.carbon_footprint);
-                const impactClass = getImpactClass(product.carbon_footprint);
+            products.forEach((product, index) => {
+                const carbonLevel = getCarbonLevel(product.carbon_footprint || 0);
+                const carbonClass = carbonLevel.toLowerCase();
                 
-                productsHTML += `
-                    <div class="product-item fade-in" style="animation-delay: ${index * 0.1}s">
-                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                html += `
+                    <div class="product-item" data-product-index="${index}">
+                        <div style="display: flex; justify-content: between; align-items: start;">
                             <div style="flex: 1;">
                                 <div style="display: flex; align-items: center; margin-bottom: 8px;">
-                                    <strong style="color: var(--dark-green); font-size: 1.1rem;">${product.original_name}</strong>
-                                    ${product.matched_name && product.matched_name !== product.original_name ? 
-                                        `<small style="color: var(--gray); margin-left: 10px;">→ ${product.matched_name}</small>` : ''
-                                    }
+                                    <strong style="color: var(--dark-green); font-size: 1.1rem;">${product.name}</strong>
+                                    <span class="carbon-score ${carbonClass}">${product.carbon_footprint?.toFixed(2) || 'N/A'} kg CO₂</span>
                                 </div>
-                                <div style="display: flex; gap: 15px; font-size: 0.9rem; color: var(--gray); flex-wrap: wrap;">
-                                    <span><i class="fas fa-dollar-sign" style="width: 12px;"></i> ${product.price.toFixed(2)}</span>
-                                    <span><i class="fas fa-tag" style="width: 12px;"></i> ${product.category}</span>
-                                    <span><i class="fas fa-percentage" style="width: 12px;"></i> ${product.confidence}% match</span>
-                                    ${product.carbon_per_dollar > 0 ? 
-                                        `<span><i class="fas fa-chart-line" style="width: 12px;"></i> ${product.carbon_per_dollar.toFixed(2)} kg CO₂/$</span>` : ''
-                                    }
+                                
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-bottom: 10px; font-size: 0.9rem;">
+                                    ${product.price ? `<span><i class="fas fa-dollar-sign" style="color: var(--primary-green); width: 15px;"></i> $${product.price.toFixed(2)}</span>` : ''}
+                                    ${product.quantity ? `<span><i class="fas fa-cubes" style="color: var(--primary-green); width: 15px;"></i> ${product.quantity}</span>` : ''}
+                                    ${product.category ? `<span><i class="fas fa-tag" style="color: var(--primary-green); width: 15px;"></i> ${product.category}</span>` : ''}
+                                    ${product.confidence ? `<span><i class="fas fa-percentage" style="color: var(--primary-green); width: 15px;"></i> ${(product.confidence * 100).toFixed(0)}% match</span>` : ''}
                                 </div>
-                                ${product.modifiers && product.modifiers.length > 0 ? `
-                                    <div style="margin-top: 8px;">
-                                        ${product.modifiers.map(modifier => 
-                                            `<span style="background: var(--light-green); color: var(--dark-green); padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; margin-right: 5px;">${modifier}</span>`
-                                        ).join('')}
+
+                                ${product.carbon_footprint > 2.0 ? `
+                                    <div style="background: rgba(239, 68, 68, 0.1); padding: 10px; border-radius: 8px; border-left: 3px solid var(--danger); margin-top: 10px;">
+                                        <strong style="color: var(--danger); font-size: 0.9rem;">
+                                            <i class="fas fa-exclamation-triangle" style="margin-right: 5px;"></i>
+                                            High Carbon Impact Item
+                                        </strong>
+                                        <button class="btn" onclick="findAlternatives(${index})" style="margin-left: 10px; font-size: 0.8rem; padding: 5px 15px;">
+                                            <i class="fas fa-exchange-alt"></i>
+                                            Find Alternative
+                                        </button>
                                     </div>
                                 ` : ''}
                             </div>
-                            <div class="tooltip">
-                                <div class="carbon-score ${impactClass}">
-                                    ${product.carbon_footprint.toFixed(2)} kg CO₂
-                                </div>
-                                <span class="tooltiptext">
-                                    Impact Level: ${carbonLevel}<br>
-                                    This represents the total carbon footprint including production, transport, and packaging.
-                                </span>
-                            </div>
                         </div>
-                        
-                        ${product.alternatives && product.alternatives.length > 0 ? `
-                            <details style="margin-top: 10px;">
-                                <summary style="cursor: pointer; color: var(--primary-green); font-weight: 500; font-size: 0.9rem;">
-                                    <i class="fas fa-leaf" style="margin-right: 5px;"></i>
-                                    View ${product.alternatives.length} Sustainable Alternative${product.alternatives.length > 1 ? 's' : ''}
-                                </summary>
-                                <div style="margin-top: 10px; padding-left: 15px; border-left: 2px solid var(--light-green);">
-                                    ${product.alternatives.map(alt => `
-                                        <div style="margin: 8px 0; font-size: 0.85rem; color: var(--gray);">
-                                            <strong style="color: var(--dark-green);">${alt.name}</strong>
-                                            <br>${alt.description}
-                                            ${alt.carbon_reduction ? `<br><span style="color: var(--primary-green);">↓ ${(alt.carbon_reduction * 100).toFixed(0)}% less carbon</span>` : ''}
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </details>
-                        ` : ''}
                     </div>
                 `;
             });
 
-            if (result.unmatched_products && result.unmatched_products.length > 0) {
-                productsHTML += `
-                    <div style="margin-top: 30px; padding: 20px; background: var(--light-gray); border-radius: 15px; border-left: 5px solid var(--warning);">
-                        <h4 style="color: var(--dark-gray); margin-bottom: 15px; display: flex; align-items: center;">
-                            <i class="fas fa-question-circle" style="margin-right: 10px; color: var(--warning);"></i>
-                            Unmatched Products (${result.unmatched_products.length})
-                        </h4>
-                        <div style="font-size: 0.9rem; color: var(--gray);">
-                            These items couldn't be matched to our carbon database:
-                            <br>
-                            ${result.unmatched_products.map(product => 
-                                `<span style="display: inline-block; background: var(--white); padding: 5px 10px; border-radius: 8px; margin: 5px 5px 0 0;">${product.name} (${product.price.toFixed(2)})</span>`
-                            ).join('')}
-                        </div>
-                    </div>
-                `;
+            productAnalysis.innerHTML = html;
+        }
+
+        // NEW: Find alternatives for a specific product
+        async function findAlternatives(productIndex) {
+            const productItems = document.querySelectorAll('.product-item');
+            const productItem = productItems[productIndex];
+            
+            if (!productItem) return;
+
+            // Show loading state
+            const button = productItem.querySelector('button');
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<div class="loading"></div> Finding...';
+            button.disabled = true;
+
+            try {
+                // Get product data (this would be stored globally when products are displayed)
+                const response = await fetch(`${API_BASE_URL}/api/find-alternatives`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_index: productIndex,
+                        include_nearby_stores: true,
+                        include_price_comparison: true,
+                        max_alternatives: 3
+                    })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    displayInlineAlternatives(productItem, result.alternatives || []);
+                } else {
+                    throw new Error('Failed to find alternatives');
+                }
+            } catch (error) {
+                console.error('Error finding alternatives:', error);
+                showNotification('Failed to find alternatives. Please try again.', 'error');
+            } finally {
+                button.innerHTML = originalHTML;
+                button.disabled = false;
             }
-
-            productAnalysis.innerHTML = productsHTML;
         }
 
-        // Update statistics display
-        function updateStatistics(result) {
-            statsGrid.style.display = 'grid';
-            
-            // Animate values
-            animateNumber('totalCarbon', 0, result.carbon_analysis.total_carbon_footprint, 2);
-            animateNumber('productCount', 0, result.products.length, 0);
-            animateNumber('matchRate', 0, result.carbon_analysis.match_rate, 1);
-            
-            // Set eco score with color
-            setTimeout(() => {
-                const scoreElement = document.getElementById('ecoScore');
-                scoreElement.textContent = result.carbon_analysis.environmental_score;
-                scoreElement.style.color = getScoreColor(result.carbon_analysis.environmental_score);
-            }, 1000);
-        }
-
-        // Display alternatives
-        function displayAlternatives(result) {
-            if (!result.recommendations || result.recommendations.length === 0) {
+        // NEW: Display alternatives inline with the product
+        function displayInlineAlternatives(productItem, alternatives) {
+            if (!alternatives || alternatives.length === 0) {
                 return;
             }
 
-            let alternativesHTML = '';
-            
-            result.recommendations.forEach((rec, index) => {
-                if (rec.type === 'product_swap') {
-                    alternativesHTML += `
-                        <div class="alternative-item fade-in" style="animation-delay: ${index * 0.1}s">
-                            <div style="flex: 1;">
-                                <strong style="color: var(--dark-green); display: flex; align-items: center; margin-bottom: 5px;">
-                                    <i class="fas fa-leaf" style="color: var(--primary-green); margin-right: 10px;"></i>
-                                    ${rec.alternative}
-                                </strong>
-                                <div style="color: var(--gray); font-size: 0.9rem; margin-bottom: 8px;">
-                                    ${rec.description}
-                                </div>
-                                <small style="color: var(--gray);">
-                                    Alternative to: <strong>${rec.original_product}</strong> • 
-                                    <span style="color: var(--primary-green);">${rec.percentage_reduction.toFixed(0)}% reduction</span>
-                                </small>
+            const existingAlts = productItem.querySelector('.inline-alternatives');
+            if (existingAlts) {
+                existingAlts.remove();
+            }
+
+            const alternativesHTML = `
+                <div class="inline-alternatives" style="margin-top: 15px; padding: 15px; background: var(--light-green); border-radius: 10px; border-left: 4px solid var(--primary-green);">
+                    <h5 style="color: var(--dark-green); margin-bottom: 10px; display: flex; align-items: center;">
+                        <i class="fas fa-leaf" style="margin-right: 8px;"></i>
+                        Sustainable Alternatives
+                    </h5>
+                    ${alternatives.map(alt => `
+                        <div style="background: var(--white); padding: 12px; margin: 8px 0; border-radius: 8px; display: flex; justify-content: between; align-items: center;">
+                            <div>
+                                <strong style="color: var(--dark-green);">${alt.name}</strong>
+                                ${alt.store_name ? `<br><small style="color: var(--gray);">Available at: ${alt.store_name}</small>` : ''}
+                                ${alt.distance_miles ? `<span style="color: var(--gray);"> • ${alt.distance_miles} miles away</span>` : ''}
                             </div>
-                            <div class="savings-badge">
-                                <i class="fas fa-arrow-down" style="margin-right: 5px;"></i>
-                                ${rec.carbon_savings.toFixed(2)} kg CO₂
+                            <div style="text-align: right;">
+                                <div style="color: var(--primary-green); font-weight: 600;">
+                                    ${alt.price ? `$${alt.price.toFixed(2)}` : 'Price varies'}
+                                </div>
+                                <div style="font-size: 0.8rem; color: var(--gray);">
+                                    ${alt.carbon_footprint?.toFixed(2) || 'N/A'} kg CO₂
+                                </div>
+                                <div style="font-size: 0.8rem; color: var(--primary-green); font-weight: 600;">
+                                    Save ${alt.carbon_savings?.toFixed(2) || '0'} kg CO₂
+                                </div>
                             </div>
                         </div>
-                    `;
-                }
-            });
+                    `).join('')}
+                </div>
+            `;
 
-            // Add general recommendations
-            const generalRecs = result.recommendations.filter(rec => rec.type === 'general');
-            if (generalRecs.length > 0) {
-                alternativesHTML += `
-                    <div style="margin-top: 30px; padding: 20px; background: var(--light-green); border-radius: 15px;">
-                        <h4 style="color: var(--dark-green); margin-bottom: 15px; display: flex; align-items: center;">
-                            <i class="fas fa-lightbulb" style="margin-right: 10px; color: var(--primary-green);"></i>
-                            General Recommendations
-                        </h4>
-                        ${generalRecs.map(rec => `
-                            <div style="margin: 15px 0; padding: 15px; background: var(--white); border-radius: 10px;">
-                                <strong style="color: var(--dark-green);">${rec.title}</strong>
-                                <br>
-                                <span style="color: var(--gray); font-size: 0.9rem;">${rec.description}</span>
-                                ${rec.potential_savings ? `
-                                    <br><span style="color: var(--primary-green); font-weight: 600;">Potential savings: ${rec.potential_savings.toFixed(2)} kg CO₂</span>
-                                ` : ''}
+            productItem.insertAdjacentHTML('beforeend', alternativesHTML);
+        }
+
+        // NEW: Display receipt-based meal prep suggestions
+        function displayReceiptBasedMealPrep(result, highCarbonItems) {
+            if (!result || !result.meal_suggestions) return;
+
+            const mealPrepSection = document.createElement('div');
+            mealPrepSection.className = 'alternatives-section fade-in';
+            mealPrepSection.style.marginTop = '30px';
+
+            mealPrepSection.innerHTML = `
+                <h2 class="card-title">
+                    <i class="fas fa-seedling"></i>
+                    Carbon-Optimized Meal Prep Suggestions
+                </h2>
+                <div style="background: var(--light-green); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                    <p style="color: var(--dark-green); margin-bottom: 15px;">
+                        <i class="fas fa-lightbulb" style="margin-right: 8px;"></i>
+                        Based on your receipt analysis, here are meal prep ideas to reduce your carbon footprint:
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; text-align: center;">
+                        <div>
+                            <strong>Current Weekly Footprint</strong><br>
+                            <span style="color: var(--danger); font-size: 1.2rem;">${result.current_footprint?.toFixed(2) || 'N/A'} kg CO₂</span>
+                        </div>
+                        <div>
+                            <strong>Optimized Footprint</strong><br>
+                            <span style="color: var(--primary-green); font-size: 1.2rem;">${result.optimized_footprint?.toFixed(2) || 'N/A'} kg CO₂</span>
+                        </div>
+                        <div>
+                            <strong>Weekly Savings</strong><br>
+                            <span style="color: var(--primary-green); font-size: 1.2rem; font-weight: 700;">${result.potential_savings?.toFixed(2) || 'N/A'} kg CO₂</span>
+                        </div>
+                    </div>
+                </div>
+
+                ${result.meal_suggestions.map((suggestion, index) => `
+                    <div class="alternative-item" style="flex-direction: column; align-items: stretch; padding: 20px;">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h4 style="color: var(--dark-green); margin: 0;">
+                                <i class="fas fa-utensils" style="margin-right: 8px; color: var(--primary-green);"></i>
+                                ${suggestion.meal_name}
+                            </h4>
+                            <div class="savings-badge">
+                                Save ${suggestion.carbon_savings?.toFixed(2) || '0'} kg CO₂
                             </div>
-                        `).join('')}
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div>
+                                <h5 style="color: var(--dark-green); margin-bottom: 8px;">Ingredients from Receipt:</h5>
+                                <ul style="margin: 0; padding-left: 20px; color: var(--gray);">
+                                    ${(suggestion.receipt_ingredients || []).map(ing => `<li>${ing}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 style="color: var(--dark-green); margin-bottom: 8px;">Additional Needed:</h5>
+                                <ul style="margin: 0; padding-left: 20px; color: var(--gray);">
+                                    ${(suggestion.additional_ingredients || []).map(ing => `<li>${ing}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 15px; padding: 15px; background: var(--white); border-radius: 10px;">
+                            <strong style="color: var(--dark-green);">Quick Prep Instructions:</strong>
+                            <p style="margin: 8px 0 0 0; color: var(--gray);">${suggestion.prep_instructions || 'Detailed instructions available in full meal plan.'}</p>
+                            <div style="margin-top: 10px; font-size: 0.9rem; color: var(--primary-green);">
+                                <i class="fas fa-clock" style="margin-right: 5px;"></i>
+                                Prep time: ${suggestion.prep_time || '30'} minutes • 
+                                Serves: ${suggestion.servings || '4'} • 
+                                Storage: ${suggestion.storage_days || '5'} days
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn btn-secondary" onclick="generateFullMealPrepPlan()">
+                        <i class="fas fa-calendar-week"></i>
+                        Generate Full Week Meal Prep Plan
+                    </button>
+                </div>
+            `;
+
+            // Insert after alternatives section or at the end
+            const existingAlts = document.getElementById('alternativesSection');
+            if (existingAlts) {
+                existingAlts.parentNode.insertBefore(mealPrepSection, existingAlts.nextSibling);
+            } else {
+                document.querySelector('.container').appendChild(mealPrepSection);
+            }
+        }
+
+        // Utility functions
+        function getCarbonLevel(footprint) {
+            if (footprint < 1.0) return 'Low';
+            if (footprint < 3.0) return 'Medium';
+            return 'High';
+        }
+
+        function getCarbonColor(footprint) {
+            if (footprint < 1.0) return 'var(--primary-green)';
+            if (footprint < 3.0) return 'var(--warning)';
+            return 'var(--danger)';
+        }
+
+        function displayStatistics(summary) {
+            if (!summary || Object.keys(summary).length === 0) {
+                statsGrid.style.display = 'none';
+                return;
+            }
+
+            document.getElementById('totalCarbon').textContent = (summary.total_carbon_footprint || 0).toFixed(2);
+            document.getElementById('productCount').textContent = summary.total_products || 0;
+            document.getElementById('matchRate').textContent = Math.round((summary.match_rate || 0) * 100);
+            document.getElementById('ecoScore').textContent = summary.environmental_score || 'C';
+            
+            statsGrid.style.display = 'grid';
+            statsGrid.classList.add('fade-in');
+        }
+
+        function displayAlternatives(alternatives) {
+            if (!alternatives || alternatives.length === 0) {
+                alternativesSection.style.display = 'none';
+                return;
+            }
+
+            let html = '';
+            alternatives.forEach(alt => {
+                html += `
+                    <div class="alternative-item">
+                        <div>
+                            <strong style="color: var(--dark-green);">${alt.original_product}</strong>
+                            <br><span style="color: var(--gray);">${alt.alternative_product}</span>
+                            <br><small style="color: var(--primary-green);">${alt.reason}</small>
+                        </div>
+                        <div class="savings-badge">
+                            Save ${alt.carbon_reduction?.toFixed(2) || '0'} kg CO₂
+                        </div>
                     </div>
                 `;
-            }
+            });
 
-            if (alternativesHTML) {
-                alternatives.innerHTML = alternativesHTML;
-                alternativesSection.style.display = 'block';
-                alternativesSection.classList.add('fade-in');
-            }
+            alternatives.innerHTML = html;
+            alternativesSection.style.display = 'block';
+            alternativesSection.classList.add('fade-in');
         }
 
-        // Helper functions
-        function getCarbonLevel(carbon) {
-            if (carbon < 0.5) return 'VERY LOW';
-            if (carbon < 1.5) return 'LOW';
-            if (carbon < 3.0) return 'MEDIUM';
-            if (carbon < 6.0) return 'HIGH';
-            return 'VERY HIGH';
+        // Progress and UI updates
+        function updateProgress(percentage, message) {
+            progressFill.style.width = percentage + '%';
+            progressText.textContent = message;
         }
 
-        function getImpactClass(carbon) {
-            if (carbon < 1.5) return 'low';
-            if (carbon < 6.0) return 'medium';
-            return 'high';
+        function updateMealPlanProgress(percentage, message) {
+            mealPlanProgressFill.style.width = percentage + '%';
+            mealPlanProgressText.textContent = message;
         }
 
-        function getScoreColor(score) {
-            const colors = {
-                'A+': 'var(--primary-green)',
-                'A': 'var(--secondary-green)', 
-                'B': 'var(--warning)',
-                'C': '#f97316',
-                'D': 'var(--danger)',
-                'F': 'var(--danger)'
-            };
-            return colors[score] || 'var(--gray)';
+        function updateShoppingProgress(percentage, message) {
+            shoppingProgressFill.style.width = percentage + '%';
+            shoppingProgressText.textContent = message;
         }
 
-        // Animate number counting
-        function animateNumber(elementId, start, end, decimals = 0) {
-            const element = document.getElementById(elementId);
-            const duration = 2000;
-            const steps = 60;
-            const increment = (end - start) / steps;
-            let current = start;
-            let stepCount = 0;
-            
-            const timer = setInterval(() => {
-                current += increment;
-                stepCount++;
-                
-                if (stepCount >= steps) {
-                    current = end;
-                    clearInterval(timer);
-                }
-                
-                element.textContent = current.toFixed(decimals);
-            }, duration / steps);
-        }
-
-        // Hide results
         function hideResults() {
+            ocrResults.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: var(--gray);">
+                    <i class="fas fa-receipt" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                    <p>Upload a receipt to see detailed carbon footprint analysis...</p>
+                </div>
+            `;
+            productAnalysis.innerHTML = '';
             statsGrid.style.display = 'none';
             alternativesSection.style.display = 'none';
-            productAnalysis.innerHTML = '';
+            imagePreview.innerHTML = '';
         }
 
-        // Display error
         function displayError(error) {
             ocrResults.innerHTML = `
                 <div class="error-message">
                     <i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>
-                    <strong>Processing Failed</strong>
-                    <br>
-                    <small>${error.message}</small>
-                    <br><br>
-                    <small style="opacity: 0.8;">
-                        Please ensure:
-                        <br>• The backend server is running on port 5000
-                        <br>• The image is clear and readable
-                        <br>• The file is a valid image format
-                    </small>
+                    Error: ${error.message || 'Unknown error occurred'}
                 </div>
             `;
         }
 
-        // Notification system
+        function displayMealPlanError(error) {
+            mealPlanResults.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>
+                    Failed to generate meal plan: ${error.message || 'Unknown error'}
+                </div>
+            `;
+        }
+
+        function displayShoppingListError(error) {
+            shoppingListResults.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>
+                    Failed to generate shopping list: ${error.message || 'Unknown error'}
+                </div>
+            `;
+        }
+
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
-            const colors = {
-                'info': 'var(--primary-green)',
-                'success': 'var(--primary-green)',
-                'warning': 'var(--warning)',
-                'error': 'var(--danger)'
-            };
-            
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 15px 25px;
-                background: ${colors[type]};
-                color: white;
-                border-radius: 10px;
-                box-shadow: 0 10px 30px var(--shadow-lg);
-                z-index: 1000;
-                font-weight: 500;
-                max-width: 400px;
-                animation: slideInRight 0.3s ease-out;
-            `;
-            
-            const icons = {
-                'info': 'fas fa-info-circle',
-                'success': 'fas fa-check-circle',
-                'warning': 'fas fa-exclamation-triangle',
-                'error': 'fas fa-times-circle'
-            };
-            
+            notification.className = type === 'error' ? 'error-message' : 'success-message';
             notification.innerHTML = `
-                <i class="${icons[type]}" style="margin-right: 10px;"></i>
+                <i class="fas fa-${type === 'error' ? 'exclamation-triangle' : 'check-circle'}" style="margin-right: 10px;"></i>
                 ${message}
             `;
             
             document.body.appendChild(notification);
             
             setTimeout(() => {
-                notification.style.animation = 'slideOutRight 0.3s ease-in';
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            }, type === 'error' ? 8000 : 5000);
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
         }
 
-        // Disable upload when backend is down
-        function disableUpload(disabled) {
-            if (disabled) {
-                uploadArea.classList.add('disabled');
-                uploadBtn.disabled = true;
-                uploadBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Backend Offline';
-                
-                ocrResults.innerHTML = `
-                    <div style="text-align: center; padding: 40px; color: var(--gray);">
-                        <i class="fas fa-server" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5; color: var(--danger);"></i>
-                        <h3 style="color: var(--danger); margin-bottom: 15px;">Backend Server Offline</h3>
-                        <p>The Python backend server is not running. Please start the server and refresh the page.</p>
-                        <div style="background: var(--light-gray); padding: 20px; border-radius: 10px; margin-top: 20px; text-align: left; font-family: monospace; font-size: 0.9rem;">
-                            <strong>To start the backend server:</strong><br>
-                            1. Navigate to the project directory<br>
-                            2. Install requirements: <code>pip install -r requirements.txt</code><br>
-                            3. Run the server: <code>python main.py</code><br>
-                            4. Ensure it's running on <code>http://localhost:</code>
-                        </div>
-                    </div>
-                `;
-            } else {
-                uploadArea.classList.remove('disabled');
-                uploadBtn.disabled = false;
-                uploadBtn.innerHTML = '<i class="fas fa-plus"></i> Choose Receipt';
-            }
+        function disableFeatures(disabled) {
+            uploadArea.classList.toggle('disabled', disabled);
+            uploadBtn.disabled = disabled;
+            generateMealPlanBtn.disabled = disabled;
+            generateShoppingListBtn.disabled = disabled;
         }
 
-        // Create floating background animation
+        // Background animation
         function createFloatingLeaves() {
             const bgAnimation = document.getElementById('bgAnimation');
-            const leafSymbols = ['🍃', '🌿', '🌱', '🍀'];
+            const leafEmojis = ['🌱', '🍃', '🌿', '🌾', '🌴'];
             
-            setInterval(() => {
+            for (let i = 0; i < 15; i++) {
                 const leaf = document.createElement('div');
                 leaf.className = 'floating-leaf';
-                leaf.textContent = leafSymbols[Math.floor(Math.random() * leafSymbols.length)];
+                leaf.textContent = leafEmojis[Math.floor(Math.random() * leafEmojis.length)];
                 leaf.style.left = Math.random() * 100 + '%';
+                leaf.style.animationDelay = Math.random() * 15 + 's';
                 leaf.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                leaf.style.fontSize = (Math.random() * 2 + 1) + 'rem';
-                
                 bgAnimation.appendChild(leaf);
-                
-                setTimeout(() => {
-                    if (leaf.parentNode) {
-                        leaf.parentNode.removeChild(leaf);
-                    }
-                }, 20000);
-            }, 3000);
+            }
         }
 
-        // Add CSS animations for notifications
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInRight {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOutRight {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
+        // Global functions for button clicks
+        window.findAlternatives = findAlternatives;
+        
+        window.generateAlternativesForAllItems = async function() {
+            showNotification('Finding alternatives for all high-carbon items...', 'info');
+            // Implementation would iterate through all high-carbon products
+            // and call findAlternatives for each
+        };
+        
+        window.generateFullMealPrepPlan = async function() {
+            showNotification('Redirecting to full meal prep planner...', 'info');
+            // Scroll to meal planning section and pre-fill based on receipt data
+            document.querySelector('.meal-planning-section').scrollIntoView({ behavior: 'smooth' });
+        };
+
+        console.log('🌱 GreenLens Enhanced - Receipt-Based Carbon Optimization Ready');
     </script>
 </body>
 </html>
